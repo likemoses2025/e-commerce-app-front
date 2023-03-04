@@ -35,6 +35,13 @@ export const formHeading = {
   borderRadius: 5,
 };
 
+export const homeHeading = {
+  paddingTop: 70,
+  flexDirection: "row",
+  justifyContent: "space-between",
+  alignItems: "center",
+};
+
 export const inputOptions = {
   style: inputStyling,
   mode: "outlined",
