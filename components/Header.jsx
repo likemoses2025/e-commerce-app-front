@@ -57,5 +57,4 @@ const Header = ({ back, emptyCart = false }) => {
     </>
   );
 };
-
 export default Header;
