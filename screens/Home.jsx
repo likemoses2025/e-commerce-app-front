@@ -13,6 +13,7 @@ import SearchModal from "../components/SearchModal";
 import ProductCard from "../components/ProductCard";
 import iconimage from "../assets/icon.png";
 import { useNavigation } from "@react-navigation/native";
+import Footer from "../components/Footer";
 
 const categories = [
   { category: "Noodle", _id: "1" },
@@ -143,6 +144,7 @@ const Home = () => {
           })}
         </ScrollView>
       </View>
+      <Footer activeRoute={"home"} />
     </>
   );
 };
