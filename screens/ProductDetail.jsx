@@ -1,11 +1,14 @@
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity, SafeAreaView } from "react-native";
 import React from "react";
 
-const ProductDetail = () => {
+const ProductDetail = ({ navigation }) => {
   return (
-    <View>
+    <SafeAreaView>
       <Text>ProductDetail</Text>
-    </View>
+      <TouchableOpacity onPress={() => navigation.navigate("home")}>
+        <Text>Go Back</Text>
+      </TouchableOpacity>
+    </SafeAreaView>
   );
 };
 

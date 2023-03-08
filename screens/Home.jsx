@@ -10,6 +10,9 @@ import { defaultStyle, colors, homeHeading } from "../styles/styles";
 import Header from "../components/Header";
 import { Avatar, Button } from "react-native-paper";
 import SearchModal from "../components/SearchModal";
+import ProductCard from "../components/ProductCard";
+import iconimage from "../assets/icon.png";
+import { useNavigation } from "@react-navigation/native";
 
 const categories = [
   { category: "Noodle", _id: "1" },
@@ -22,9 +25,17 @@ const categories = [
 const products = [
   {
     price: 23423,
+    stock: 23,
     name: "woman",
     _id: "dkjhf77",
-    images: [{ url: "https://images.app.goo.gl/bBQRnzwsRhPfeSXh8" }],
+    images: [{ iconimage }],
+  },
+  {
+    price: 13423,
+    stock: 23,
+    name: "woman2",
+    _id: "d1kjhf77",
+    images: [{ iconimage }],
   },
 ];
 
@@ -33,8 +44,14 @@ const Home = () => {
   const [activeSearch, setActiveSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
+  const navigation = useNavigation();
+
   const categoryButtonHandler = (id) => {
     setCategory(id);
+  };
+
+  const addToCartHandler = (id) => {
+    console.log("Add to Cart", id);
   };
 
   return (
@@ -108,6 +125,23 @@ const Home = () => {
         </View>
 
         {/* Products */}
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          {products.map((item, index) => {
+            return (
+              <ProductCard
+                stock={item.stock}
+                name={item.name}
+                price={item.price}
+                image={item.images[0]?.url}
+                addToCartHandler={addToCartHandler}
+                id={item.id}
+                key={item._id}
+                i={index}
+                navigation={navigation}
+              />
+            );
+          })}
+        </ScrollView>
       </View>
     </>
   );
