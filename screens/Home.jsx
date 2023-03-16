@@ -28,14 +28,14 @@ const products = [
     price: 23423,
     stock: 23,
     name: "woman",
-    _id: "dkjhf77",
+    id: "dkjhf77",
     images: [{ iconimage }],
   },
   {
     price: 13423,
     stock: 23,
     name: "woman2",
-    _id: "d1kjhf77",
+    id: "d1kjhf77",
     images: [{ iconimage }],
   },
 ];
@@ -136,7 +136,7 @@ const Home = () => {
                 image={item.images[0]?.url}
                 addToCartHandler={addToCartHandler}
                 id={item.id}
-                key={item._id}
+                key={item.id}
                 i={index}
                 navigation={navigation}
               />
