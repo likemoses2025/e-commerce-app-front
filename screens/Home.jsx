@@ -29,14 +29,22 @@ const products = [
     stock: 23,
     name: "woman",
     id: "dkjhf77",
-    images: [{ iconimage }],
+    images: [
+      {
+        url: "https://cdn.pixabay.com/photo/2023/01/16/19/13/bird-7723137_960_720.jpg",
+      },
+    ],
   },
   {
     price: 13423,
     stock: 23,
     name: "woman2",
     id: "d1kjhf77",
-    images: [{ iconimage }],
+    images: [
+      {
+        url: "https://cdn.pixabay.com/photo/2023/03/09/14/40/berries-7840199_960_720.jpg",
+      },
+    ],
   },
 ];
 
