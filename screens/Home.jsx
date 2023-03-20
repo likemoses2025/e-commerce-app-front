@@ -14,6 +14,7 @@ import ProductCard from "../components/ProductCard";
 import iconimage from "../assets/icon.png";
 import { useNavigation } from "@react-navigation/native";
 import Footer from "../components/Footer";
+import Heading from "../components/Heading";
 
 const categories = [
   { category: "Noodle", _id: "1" },
@@ -85,10 +86,7 @@ const Home = () => {
           }}
         >
           {/* Heading */}
-          <View>
-            <Text style={{ fontSize: 25 }}>Our</Text>
-            <Text style={{ fontSize: 25, fontWeight: 900 }}>Products</Text>
-          </View>
+          <Heading text1="Our" text2="Products" />
 
           {/* Search Bar */}
           <View>
