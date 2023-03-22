@@ -34,7 +34,7 @@ const SignUp = ({ navigation }) => {
 
   return (
     <>
-      <View style={{ ...defaultStyle, backgroundColor: colors.color2 }}>
+      <View style={defaultStyle}>
         {/* Heading */}
         <View style={{ marginBottom: 20 }}>
           <Text style={formHeading}>Sign Up</Text>
