@@ -16,6 +16,7 @@ import Profile from "./screens/Profile";
 import UpdateProfile from "./screens/UpdateProfile";
 import ChangePassword from "./screens/ChangePassword";
 import Camera from "./screens/Camera";
+import Orders from "./screens/Orders";
 
 const Stack = createNativeStackNavigator();
 
@@ -33,15 +34,16 @@ const Main = () => {
           <Stack.Screen name="confirmorder" component={ConfirmOrder} />
           <Stack.Screen name="payment" component={Payment} />
           <Stack.Screen name="login" component={Login} />
-          <Stack.Screen name="verify" component={Verify} />
           <Stack.Screen name="signup" component={SignUp} />
           <Stack.Screen name="profile" component={Profile} />
           <Stack.Screen name="updateprofile" component={UpdateProfile} />
           <Stack.Screen name="changepassword" component={ChangePassword} />
           <Stack.Screen name="camera" component={Camera} />
+          <Stack.Screen name="orders" component={Orders} />
 
           {/* Password Reseting Route */}
           <Stack.Screen name="forgetpassword" component={ForgetPassword} />
+          <Stack.Screen name="verify" component={Verify} />
         </Stack.Group>
       </Stack.Navigator>
       <Toast position="top" topOffset={60} />
