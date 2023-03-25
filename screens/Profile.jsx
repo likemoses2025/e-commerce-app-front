@@ -66,9 +66,7 @@ const Profile = ({ navigation }) => {
                 size={100}
                 style={{ backgroundColor: colors.color1 }}
               />
-              <TouchableOpacity
-                onPress={navigation.navigate("camera", { updateProfile: true })}
-              >
+              <TouchableOpacity onPress={navigation.navigate("camera")}>
                 <Button textColor={colors.color1}>Change Photo</Button>
               </TouchableOpacity>
 
@@ -78,48 +76,50 @@ const Profile = ({ navigation }) => {
               </Text>
             </View>
 
-            <View
-              style={{
-                flexDirection: "row",
-                margin: 10,
-                justifyContent: "space-between",
-              }}
-            >
-              <ButtonBox
-                handler={navigateHandler}
-                text={"Orders"}
-                icon={"format-list-bulleted-square"}
-              />
-              <ButtonBox
-                handler={navigateHandler}
-                icon={"view-dashboard"}
-                reverse={true}
-                text={"Admin"}
-              />
-              <ButtonBox
-                handler={navigateHandler}
-                icon={"pencil"}
-                text={"Profile"}
-              />
-            </View>
+            <View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  margin: 10,
+                  justifyContent: "space-between",
+                }}
+              >
+                <ButtonBox
+                  handler={navigateHandler}
+                  text={"Orders"}
+                  icon={"format-list-bulleted-square"}
+                />
+                <ButtonBox
+                  handler={navigateHandler}
+                  icon={"view-dashboard"}
+                  text={"Admin"}
+                  reverse={true}
+                />
+                <ButtonBox
+                  handler={navigateHandler}
+                  text={"Profile"}
+                  icon={"pencil"}
+                />
+              </View>
 
-            <View
-              style={{
-                flexDirection: "row",
-                margin: 10,
-                justifyContent: "space-evenly",
-              }}
-            >
-              <ButtonBox
-                handler={navigateHandler}
-                icon={"pencil"}
-                text={"Password"}
-              />
-              <ButtonBox
-                handler={navigateHandler}
-                icon={"exit-to-app"}
-                text={"Sign Out"}
-              />
+              <View
+                style={{
+                  flexDirection: "row",
+                  margin: 10,
+                  justifyContent: "space-evenly",
+                }}
+              >
+                <ButtonBox
+                  handler={navigateHandler}
+                  text={"Password"}
+                  icon={"pencil"}
+                />
+                <ButtonBox
+                  handler={navigateHandler}
+                  text={"Sign Out"}
+                  icon={"exit-to-app"}
+                />
+              </View>
             </View>
           </>
         )}

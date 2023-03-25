@@ -1,3 +1,5 @@
+import { useNavigation } from "@react-navigation/native";
+import React, { useState } from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -5,16 +7,13 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useState } from "react";
-import { defaultStyle, colors, homeHeading } from "../styles/styles";
-import Header from "../components/Header";
 import { Avatar, Button } from "react-native-paper";
-import SearchModal from "../components/SearchModal";
-import ProductCard from "../components/ProductCard";
-import iconimage from "../assets/icon.png";
-import { useNavigation } from "@react-navigation/native";
 import Footer from "../components/Footer";
+import Header from "../components/Header";
 import Heading from "../components/Heading";
+import ProductCard from "../components/ProductCard";
+import SearchModal from "../components/SearchModal";
+import { colors, defaultStyle } from "../styles/styles";
 
 const categories = [
   { category: "Noodle", _id: "1" },
@@ -24,7 +23,7 @@ const categories = [
   { category: "Etc", _id: "5" },
 ];
 
-const products = [
+export const products = [
   {
     price: 23423,
     stock: 23,
