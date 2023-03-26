@@ -1,12 +1,78 @@
-import { View, Text } from "react-native";
-import React from "react";
+import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
+import React, { useState } from "react";
+import { colors } from "../styles/styles";
+import MyModal from "../components/MyModal";
 
-const ProductListItem = () => {
+const ProductListItem = ({
+  navigation,
+  deleteHandler,
+  i,
+  id,
+  price,
+  stock,
+  name,
+  category,
+  imgSrc,
+}) => {
+  const [openModal, setOpenModal] = useState(false);
+
   return (
-    <View>
-      <Text>ProductListItem</Text>
-    </View>
+    <>
+      <TouchableOpacity
+        key={id}
+        activeOpacity={0.9}
+        onLongPress={() => setOpenModal((prev) => !prev)}
+        onPress={() => navigation.navigate("productdetails", { id })}
+      >
+        <View
+          style={{
+            ...styles.container,
+            backgroundColor: i % 2 === 0 ? colors.color1 : colors.color3,
+          }}
+        >
+          <Image
+            source={{ uri: imgSrc }}
+            style={{ width: 40, height: 40, resizeMode: "contain" }}
+          />
+          <Text style={{ width: 60, color: colors.color2 }} numberOfLines={1}>
+            {price}원
+          </Text>
+          <Text
+            style={{ maxWidth: 120, color: colors.color2 }}
+            numberOfLines={1}
+          >
+            {name}
+          </Text>
+          <Text style={{ width: 60, color: colors.color2 }} numberOfLines={1}>
+            {category}
+          </Text>
+          <Text style={{ width: 40, color: colors.color2 }} numberOfLines={1}>
+            {stock}
+          </Text>
+        </View>
+      </TouchableOpacity>
+      {openModal && (
+        <MyModal
+          id={id}
+          deleteHandler={deleteHandler}
+          navigation={navigation}
+          setOpenModal={setOpenModal}
+        />
+      )}
+    </>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    height: 70,
+    alignItems: "center",
+    padding: 10,
+    borderRadius: 10,
+    marginTop: 10,
+  },
+});
 
 export default ProductListItem;

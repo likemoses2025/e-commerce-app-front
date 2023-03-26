@@ -27,6 +27,7 @@ export const products = [
   {
     price: 23423,
     stock: 23,
+    category: "Noodle",
     name: "woman",
     id: "dkjhf77",
     images: [
@@ -38,6 +39,7 @@ export const products = [
   {
     price: 13423,
     stock: 23,
+    category: "Noodle",
     name: "woman2",
     id: "d1kjhf77",
     images: [
