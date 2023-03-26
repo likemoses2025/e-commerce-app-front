@@ -7,11 +7,27 @@ import ButtonBox from "../../components/ButtonBox";
 import ProductListHeading from "../../components/ProductListHeading";
 import { products } from "../Home";
 import ProductListItem from "../ProductListItem";
+import Chart from "../../components/Chart";
 
 const AdminPanel = ({ navigation }) => {
   const loading = false;
 
-  const navigationHandler = () => {};
+  const navigationHandler = (text) => {
+    switch (text) {
+      case "Category":
+        navigation.navigate("categories");
+        break;
+      case "All Orders":
+        navigation.navigate("adminorders");
+        break;
+      case "Product":
+        navigation.navigate("newproduct");
+        break;
+      default:
+        navigation.navigate("adminorders");
+        break;
+    }
+  };
 
   const deleteProductHandler = (id) => {
     console.log("Deleting Product With ID:");
@@ -32,10 +48,12 @@ const AdminPanel = ({ navigation }) => {
           <View
             style={{
               backgroundColor: colors.color3,
-              borderRadius: 20,
+              borderRadius: 10,
               alignItems: "center",
             }}
-          ></View>
+          >
+            <Chart inStock={12} outStock={2} />
+          </View>
 
           <View>
             <View

@@ -27,9 +27,9 @@ export const products = [
   {
     price: 23423,
     stock: 23,
-    category: "Noodle",
+    category: "Laptop",
     name: "woman",
-    id: "dkjhf77",
+    id: "dkjhf77232",
     images: [
       {
         url: "https://cdn.pixabay.com/photo/2023/01/16/19/13/bird-7723137_960_720.jpg",
@@ -39,7 +39,7 @@ export const products = [
   {
     price: 13423,
     stock: 23,
-    category: "Noodle",
+    category: "IDK",
     name: "woman2",
     id: "d1kjhf77",
     images: [
