@@ -6,7 +6,7 @@ import Loader from "../components/Loader";
 import OrderItem from "../components/OrderItem";
 import { defaultStyle, formHeading } from "../styles/styles";
 
-const orders = [
+export const orders = [
   {
     _id: "dljfldsjfld",
     shippingInfo: {
