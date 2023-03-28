@@ -94,7 +94,7 @@ const AdminPanel = ({ navigation }) => {
                   price={item.price}
                   stock={item.stock}
                   name={item.name}
-                  category={item.category}
+                  category={item.category?.category}
                   imgSrc={item.images[0].url}
                 />
               ))}
