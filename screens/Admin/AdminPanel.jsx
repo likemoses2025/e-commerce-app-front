@@ -30,7 +30,7 @@ const AdminPanel = ({ navigation }) => {
   };
 
   const deleteProductHandler = (id) => {
-    console.log("Deleting Product With ID:");
+    console.log(`Deleting Product With ID: ${id}`);
   };
 
   return (
@@ -88,7 +88,6 @@ const AdminPanel = ({ navigation }) => {
                 <ProductListItem
                   navigation={navigation}
                   deleteHandler={deleteProductHandler}
-                  key={item._id}
                   id={item._id}
                   i={index}
                   price={item.price}

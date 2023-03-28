@@ -19,6 +19,7 @@ const ProductListItem = ({
   return (
     <>
       <TouchableOpacity
+        key={id}
         activeOpacity={0.9}
         onLongPress={() => setOpenModal((prev) => !prev)}
         onPress={() => navigate.navigate("productdetails", { id })}
@@ -85,7 +86,7 @@ const ProductListItem = ({
       {openModal && (
         <MyModal
           id={id}
-          deleteHandler={deleteHandler}
+          deleteHandler={deleteHandler(id)}
           navigation={navigation}
           setOpenModal={setOpenModal}
         />
