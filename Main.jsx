@@ -22,6 +22,7 @@ import Categories from "./screens/Admin/Categories";
 import AdminOrder from "./screens/Admin/AdminOrder";
 import UpdateProduct from "./screens/Admin/UpdateProduct";
 import NewProduct from "./screens/Admin/NewProduct";
+import ProductImages from "./screens/Admin/ProductImages";
 
 const Stack = createNativeStackNavigator();
 
@@ -43,8 +44,8 @@ const Main = () => {
           <Stack.Screen name="profile" component={Profile} />
           <Stack.Screen name="updateprofile" component={UpdateProfile} />
           <Stack.Screen name="changepassword" component={ChangePassword} />
-          <Stack.Screen name="camera" component={Camera} />
           <Stack.Screen name="orders" component={Orders} />
+          <Stack.Screen name="camera" component={Camera} />
 
           {/* Password Reseting Route */}
           <Stack.Screen name="forgetpassword" component={ForgetPassword} />
@@ -58,6 +59,7 @@ const Main = () => {
           <Stack.Screen name="newproduct" component={NewProduct} />
 
           {/* Product Image remaining */}
+          <Stack.Screen name="productimages" component={ProductImages} />
         </Stack.Group>
       </Stack.Navigator>
       <Toast position="top" topOffset={60} />

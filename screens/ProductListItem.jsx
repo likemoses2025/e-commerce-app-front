@@ -19,10 +19,9 @@ const ProductListItem = ({
   return (
     <>
       <TouchableOpacity
-        key={id}
         activeOpacity={0.9}
         onLongPress={() => setOpenModal((prev) => !prev)}
-        onPress={() => navigate.navigate("productdetails", { id })}
+        onPress={() => navigation.navigate("productdetails", { id })}
       >
         <View
           style={{

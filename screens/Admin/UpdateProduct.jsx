@@ -15,6 +15,16 @@ import SelectComponent from "../../components/SelectComponent";
 const UpdateProduct = ({ navigation, route }) => {
   const loading = false;
   const loadingOther = false;
+  const images = [
+    {
+      url: "https://www.istockphoto.com/resources/images/PhotoFTLP/1040315976.jpg",
+      _id: "ldjfldj2fldd1",
+    },
+    {
+      url: "https://cdn.pixabay.com/photo/2023/02/18/13/48/barbary-macaque-7797970_960_720.jpg",
+      _id: "ldjfld34jfldd2",
+    },
+  ];
 
   const [id] = useState(route.params.id);
   const [name, setName] = useState("");
@@ -24,9 +34,9 @@ const UpdateProduct = ({ navigation, route }) => {
   const [category, setCategory] = useState("LapTop");
   const [categoryID, setCategoryID] = useState("");
   const [categories, setCategories] = useState([
-    { _id: "dlfjlsd", category: "LapTop" },
-    { _id: "dlfdjlsd", category: "Footwear" },
-    { _id: "dlfjfslsd", category: "Cloths" },
+    { _id: "dlf1jlsd", category: "LapTop" },
+    { _id: "dlfd2jlsd", category: "Footwear" },
+    { _id: "dlfjfs3lsd", category: "Cloths" },
   ]);
   const [visiable, setVisiable] = useState(false);
 
@@ -57,7 +67,10 @@ const UpdateProduct = ({ navigation, route }) => {
               <Button
                 textColor={colors.color1}
                 onPress={() =>
-                  navigation.navigate("productimages", { id, images: [] })
+                  navigation.navigate("productimages", {
+                    id: id,
+                    images: images,
+                  })
                 }
               >
                 Manage Images

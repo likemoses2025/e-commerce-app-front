@@ -29,7 +29,7 @@ export const products = [
     stock: 23,
     category: "Laptop",
     name: "woman",
-    id: "dkjhf77232",
+    _id: "dkjhf77222232",
     images: [
       {
         url: "https://cdn.pixabay.com/photo/2023/01/16/19/13/bird-7723137_960_720.jpg",
@@ -41,7 +41,7 @@ export const products = [
     stock: 23,
     category: "IDK",
     name: "woman2",
-    id: "d1kjhf77",
+    _id: "d1kjh33f77",
     images: [
       {
         url: "https://cdn.pixabay.com/photo/2023/03/09/14/40/berries-7840199_960_720.jpg",
@@ -142,8 +142,8 @@ const Home = () => {
                 price={item.price}
                 image={item.images[0]?.url}
                 addToCartHandler={addToCartHandler}
-                id={item.id}
-                key={item.id}
+                id={item._id}
+                key={item._id}
                 i={index}
                 navigation={navigation}
               />

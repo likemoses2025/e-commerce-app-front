@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   colors,
   defaultStyle,
@@ -11,7 +11,7 @@ import {
 import { Avatar, Button, TextInput } from "react-native-paper";
 import Footer from "../components/Footer";
 
-const SignUp = ({ navigation }) => {
+const SignUp = ({ navigation, route }) => {
   const [avatar, setAvatar] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -31,6 +31,10 @@ const SignUp = ({ navigation }) => {
 
   const disableBtn =
     !name || !email || !password || !address || !city || !country || !pinCode;
+
+  useEffect(() => {
+    if (route.params?.image) return setAvatar(route.params.image);
+  }, [route.params]);
 
   return (
     <>
