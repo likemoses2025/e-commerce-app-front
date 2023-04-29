@@ -3,13 +3,12 @@ import React from "react";
 import { TouchableOpacity, View } from "react-native";
 import { Avatar } from "react-native-paper";
 import { colors } from "../styles/styles";
+import { useSelector } from "react-redux";
 
 const Footer = ({ activeRoute = "home" }) => {
   const navigation = useNavigation();
 
-  const loading = false;
-
-  const isAuthenticated = true;
+  const { isAuthenticated, loading } = useSelector((state) => state.user);
 
   const navigationHandler = (key) => {
     switch (key) {

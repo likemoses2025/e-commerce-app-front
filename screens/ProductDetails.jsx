@@ -1,18 +1,17 @@
+import React, { useRef, useState } from "react";
 import {
-  View,
-  Text,
   Dimensions,
   Image,
   StyleSheet,
+  Text,
   TouchableOpacity,
+  View,
 } from "react-native";
-import React, { useRef, useState } from "react";
-import { colors, defaultStyle } from "../styles/styles";
-import Header from "../components/Header";
-import Carousel from "react-native-snap-carousel";
-import { sample1 } from "../assets/sample1.jpg";
 import { Avatar, Button } from "react-native-paper";
+import Carousel from "react-native-snap-carousel";
 import Toast from "react-native-toast-message";
+import Header from "../components/Header";
+import { colors, defaultStyle } from "../styles/styles";
 
 const SLIDER_WIDTH = Dimensions.get("window").width;
 const ITEM_WIDTH = SLIDER_WIDTH;
