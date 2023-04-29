@@ -9,9 +9,9 @@ const Footer = ({ activeRoute = "home" }) => {
 
   const loading = false;
 
-  const isAuthenticated = false;
+  const isAuthenticated = true;
 
-  const navigatationHandler = (key) => {
+  const navigationHandler = (key) => {
     switch (key) {
       case 0:
         navigation.navigate("home");
@@ -48,7 +48,7 @@ const Footer = ({ activeRoute = "home" }) => {
         <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
           <TouchableOpacity
             activeOpacity={0.8}
-            onPress={() => navigatationHandler(1)}
+            onPress={() => navigationHandler(1)}
           >
             <Avatar.Icon
               {...avatarOptions}
@@ -57,11 +57,17 @@ const Footer = ({ activeRoute = "home" }) => {
           </TouchableOpacity>
           <TouchableOpacity
             activeOpacity={0.8}
-            onPress={() => navigatationHandler(2)}
+            onPress={() => navigationHandler(2)}
           >
             <Avatar.Icon
               {...avatarOptions}
-              icon={activeRoute === "profile" ? "account" : "account-outline"}
+              icon={
+                isAuthenticated === false
+                  ? "login"
+                  : activeRoute === "profile"
+                  ? "account"
+                  : "account-outline"
+              }
             />
           </TouchableOpacity>
         </View>
@@ -87,7 +93,7 @@ const Footer = ({ activeRoute = "home" }) => {
           >
             <TouchableOpacity
               activeOpacity={0.8}
-              onPress={() => navigatationHandler(0)}
+              onPress={() => navigationHandler(0)}
             >
               <Avatar.Icon
                 {...avatarOptions}

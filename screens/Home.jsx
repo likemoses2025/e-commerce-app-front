@@ -1,3 +1,5 @@
+import { useNavigation } from "@react-navigation/native";
+import React, { useState } from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -5,15 +7,13 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useState } from "react";
-import { defaultStyle, colors, homeHeading } from "../styles/styles";
-import Header from "../components/Header";
 import { Avatar, Button } from "react-native-paper";
-import SearchModal from "../components/SearchModal";
-import ProductCard from "../components/ProductCard";
-import iconimage from "../assets/icon.png";
-import { useNavigation } from "@react-navigation/native";
 import Footer from "../components/Footer";
+import Header from "../components/Header";
+import Heading from "../components/Heading";
+import ProductCard from "../components/ProductCard";
+import SearchModal from "../components/SearchModal";
+import { colors, defaultStyle } from "../styles/styles";
 
 const categories = [
   { category: "Noodle", _id: "1" },
@@ -23,20 +23,30 @@ const categories = [
   { category: "Etc", _id: "5" },
 ];
 
-const products = [
+export const products = [
   {
     price: 23423,
     stock: 23,
+    category: "Laptop",
     name: "woman",
-    id: "dkjhf77",
-    images: [{ iconimage }],
+    _id: "dkjhf77222232",
+    images: [
+      {
+        url: "https://cdn.pixabay.com/photo/2023/01/16/19/13/bird-7723137_960_720.jpg",
+      },
+    ],
   },
   {
     price: 13423,
     stock: 23,
+    category: "IDK",
     name: "woman2",
-    id: "d1kjhf77",
-    images: [{ iconimage }],
+    _id: "d1kjh33f77",
+    images: [
+      {
+        url: "https://cdn.pixabay.com/photo/2023/03/09/14/40/berries-7840199_960_720.jpg",
+      },
+    ],
   },
 ];
 
@@ -77,10 +87,7 @@ const Home = () => {
           }}
         >
           {/* Heading */}
-          <View>
-            <Text style={{ fontSize: 25 }}>Our</Text>
-            <Text style={{ fontSize: 25, fontWeight: 900 }}>Products</Text>
-          </View>
+          <Heading text1="Our" text2="Products" />
 
           {/* Search Bar */}
           <View>
@@ -135,8 +142,8 @@ const Home = () => {
                 price={item.price}
                 image={item.images[0]?.url}
                 addToCartHandler={addToCartHandler}
-                id={item.id}
-                key={item.id}
+                id={item._id}
+                key={item._id}
                 i={index}
                 navigation={navigation}
               />
