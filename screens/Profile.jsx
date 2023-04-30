@@ -5,19 +5,19 @@ import { Avatar, Button } from "react-native-paper";
 import ButtonBox from "../components/ButtonBox";
 import Footer from "../components/Footer";
 import Loader from "../components/Loader";
-
-user = {
-  name: "JangBuHo",
-  email: "sample@example.com",
-};
-
-const loading = false;
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../redux/actions/userAction";
+import { useMessageAndErrorUser } from "../utils/hooks";
 
 const Profile = ({ navigation, route }) => {
+  const dispatch = useDispatch();
   const [avatar, setAvatar] = useState(null);
+  const user = useSelector((state) => state.user);
+
+  const loading = useMessageAndErrorUser(navigation, dispatch, "login");
 
   const logoutHandler = () => {
-    console.log("Signing Out");
+    dispatch(logout());
   };
 
   const navigateHandler = (text) => {
