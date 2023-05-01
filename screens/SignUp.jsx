@@ -10,8 +10,14 @@ import {
 } from "../styles/styles";
 import { Avatar, Button, TextInput } from "react-native-paper";
 import Footer from "../components/Footer";
+import mime from "mime";
+import { useDispatch } from "react-redux";
+import { register } from "../redux/actions/userAction";
+import { useMessageAndErrorUser } from "../utils/hooks";
 
 const SignUp = ({ navigation, route }) => {
+  const dispatch = useDispatch();
+
   const [avatar, setAvatar] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -21,16 +27,32 @@ const SignUp = ({ navigation, route }) => {
   const [country, setCountry] = useState("");
   const [pinCode, setPinCode] = useState("");
 
-  const submitHandler = () => {
-    alert("Yeah");
-    // Will remove this in future
-    navigation.navigate("verify");
-  };
-
-  const loading = false;
-
   const disableBtn =
     !name || !email || !password || !address || !city || !country || !pinCode;
+
+  const submitHandler = () => {
+    const myForm = new FormData();
+
+    myForm.append("name", name);
+    myForm.append("email", email);
+    myForm.append("password", password);
+    myForm.append("address", address);
+    myForm.append("city", city);
+    myForm.append("country", country);
+    myForm.append("pinCode", pinCode);
+
+    if (avatar !== "") {
+      myForm.append("file", {
+        uri: avatar,
+        type: mime.getType(avatar),
+        name: avatar.split("/").pop(),
+      });
+    }
+
+    dispatch(register(myForm));
+  };
+
+  const loading = useMessageAndErrorUser(navigation, dispatch, "profile");
 
   useEffect(() => {
     if (route.params?.image) return setAvatar(route.params.image);
@@ -114,11 +136,11 @@ const SignUp = ({ navigation, route }) => {
             />
 
             <Button
+              loading={loading}
               textColor={colors.color2}
               disabled={disableBtn}
               style={formStyles.btn}
               onPress={submitHandler}
-              loading={loading}
             >
               Sign Up
             </Button>

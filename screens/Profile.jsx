@@ -6,13 +6,13 @@ import ButtonBox from "../components/ButtonBox";
 import Footer from "../components/Footer";
 import Loader from "../components/Loader";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../redux/actions/userAction";
+import { loadUser, logout } from "../redux/actions/userAction";
 import { useMessageAndErrorUser } from "../utils/hooks";
 
 const Profile = ({ navigation, route }) => {
+  const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const [avatar, setAvatar] = useState(null);
-  const user = useSelector((state) => state.user);
 
   const loading = useMessageAndErrorUser(navigation, dispatch, "login");
 
@@ -51,6 +51,12 @@ const Profile = ({ navigation, route }) => {
       // dispatch updatePic here
     }
   }, [route.params]);
+
+  useEffect(() => {
+    if (user?.avatar) {
+      setAvatar(user.avatar.url);
+    }
+  }, [user]);
 
   return (
     <>

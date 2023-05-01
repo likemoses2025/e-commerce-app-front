@@ -1,30 +1,29 @@
-import { useNavigation } from "@react-navigation/native";
+import { View, TouchableOpacity } from "react-native";
 import React from "react";
-import { TouchableOpacity, View } from "react-native";
-import { Avatar } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
 import { colors } from "../styles/styles";
+import { Avatar } from "react-native-paper";
 import { useSelector } from "react-redux";
 
 const Footer = ({ activeRoute = "home" }) => {
-  const navigation = useNavigation();
+  const navigate = useNavigation();
 
-  const { isAuthenticated, loading } = useSelector((state) => state.user);
+  const { loading, isAuthenticated } = useSelector((state) => state.user);
 
-  const navigationHandler = (key) => {
+  const navigatationHandler = (key) => {
     switch (key) {
       case 0:
-        navigation.navigate("home");
+        navigate.navigate("home");
         break;
       case 1:
-        navigation.navigate("cart");
+        navigate.navigate("cart");
         break;
       case 2:
-        if (isAuthenticated) {
-          navigation.navigate("profile");
-        } else navigation.navigate("login");
+        if (isAuthenticated) navigate.navigate("profile");
+        else navigate.navigate("login");
         break;
       default:
-        navigation.navigate("home");
+        navigate.navigate("home");
         break;
     }
   };
@@ -32,7 +31,9 @@ const Footer = ({ activeRoute = "home" }) => {
   const avatarOptions = {
     color: colors.color2,
     size: 50,
-    style: { backgroundColor: colors.color1 },
+    style: {
+      backgroundColor: colors.color1,
+    },
   };
 
   return (
@@ -42,21 +43,30 @@ const Footer = ({ activeRoute = "home" }) => {
           backgroundColor: colors.color1,
           borderTopRightRadius: 120,
           borderTopLeftRadius: 120,
+          position: "absolute",
+          width: "100%",
+          bottom: 0,
         }}
       >
-        <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-evenly",
+          }}
+        >
           <TouchableOpacity
             activeOpacity={0.8}
-            onPress={() => navigationHandler(1)}
+            onPress={() => navigatationHandler(1)}
           >
             <Avatar.Icon
               {...avatarOptions}
               icon={activeRoute === "cart" ? "shopping" : "shopping-outline"}
             />
           </TouchableOpacity>
+
           <TouchableOpacity
             activeOpacity={0.8}
-            onPress={() => navigationHandler(2)}
+            onPress={() => navigatationHandler(2)}
           >
             <Avatar.Icon
               {...avatarOptions}
@@ -70,13 +80,14 @@ const Footer = ({ activeRoute = "home" }) => {
             />
           </TouchableOpacity>
         </View>
+
         <View
           style={{
             position: "absolute",
             width: 80,
             height: 80,
-            borderRadius: 80,
             backgroundColor: colors.color2,
+            borderRadius: 100,
             justifyContent: "center",
             alignItems: "center",
             top: -50,
@@ -92,7 +103,7 @@ const Footer = ({ activeRoute = "home" }) => {
           >
             <TouchableOpacity
               activeOpacity={0.8}
-              onPress={() => navigationHandler(0)}
+              onPress={() => navigatationHandler(0)}
             >
               <Avatar.Icon
                 {...avatarOptions}
