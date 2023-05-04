@@ -12,14 +12,21 @@ import Footer from "../components/Footer";
 import Loader from "../components/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { loadUser, logout } from "../redux/actions/userAction";
-import { useMessageAndErrorUser } from "../utils/hooks";
+import {
+  useMessageAndErrorOther,
+  useMessageAndErrorUser,
+} from "../utils/hooks";
+import { useIsFocused } from "@react-navigation/native";
+import mime from "mime";
+import { updatePic } from "../redux/actions/otherAction";
 
 const Profile = ({ navigation, route }) => {
   const { user } = useSelector((state) => state.user);
-  const dispatch = useDispatch();
   const [avatar, setAvatar] = useState(
     user?.avatar ? user?.avatar.url : defaultImg
   );
+  const dispatch = useDispatch();
+  const isFocused = useIsFocused();
 
   const loading = useMessageAndErrorUser(navigation, dispatch, "login");
 
@@ -52,12 +59,23 @@ const Profile = ({ navigation, route }) => {
     }
   };
 
+  const loadingPic = useMessageAndErrorOther(dispatch, null, null, loadUser);
+
   useEffect(() => {
     if (route.params?.image) {
       setAvatar(route.params.image);
-      // dispatch updatePic here
+      // dispatch updatePic Here
+      const myForm = new FormData();
+      myForm.append("file", {
+        uri: route.params.image,
+        type: mime.getType(route.params.image),
+        name: route.params.image.split("/").pop(),
+      });
+      dispatch(updatePic(myForm));
     }
-  }, [route.params]);
+
+    dispatch(loadUser());
+  }, [route.params, dispatch, isFocused]);
 
   useEffect(() => {
     if (user?.avatar) {
@@ -85,11 +103,18 @@ const Profile = ({ navigation, route }) => {
                 style={{ backgroundColor: colors.color1 }}
               />
               <TouchableOpacity
+                disabled={loadingPic}
                 onPress={() =>
                   navigation.navigate("camera", { updateProfile: true })
                 }
               >
-                <Button textColor={colors.color1}>Change Photo</Button>
+                <Button
+                  disabled={loadingPic}
+                  loading={loadingPic}
+                  textColor={colors.color1}
+                >
+                  Change Photo
+                </Button>
               </TouchableOpacity>
 
               <Text style={styles.name}>{user?.name}</Text>

@@ -10,15 +10,22 @@ import {
   inputOptions,
 } from "../styles/styles";
 
+import { useDispatch } from "react-redux";
+import { updatePassword } from "../redux/actions/otherAction";
+import { useMessageAndErrorOther } from "../utils/hooks";
+
 const ChangePassword = ({ navigation }) => {
+  const dispatch = useDispatch();
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
 
-  const submitHandler = () => {
-    alert("Yeah");
-  };
+  const loading = useMessageAndErrorOther(dispatch);
 
-  const loading = false;
+  const submitHandler = () => {
+    dispatch(updatePassword(oldPassword, newPassword));
+    setOldPassword("");
+    setNewPassword("");
+  };
 
   return (
     <>
