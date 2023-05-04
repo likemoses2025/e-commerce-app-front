@@ -1,6 +1,11 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
-import { colors, defaultStyle, formHeading } from "../styles/styles";
+import {
+  colors,
+  defaultImg,
+  defaultStyle,
+  formHeading,
+} from "../styles/styles";
 import { Avatar, Button } from "react-native-paper";
 import ButtonBox from "../components/ButtonBox";
 import Footer from "../components/Footer";
@@ -12,7 +17,9 @@ import { useMessageAndErrorUser } from "../utils/hooks";
 const Profile = ({ navigation, route }) => {
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const [avatar, setAvatar] = useState(null);
+  const [avatar, setAvatar] = useState(
+    user?.avatar ? user?.avatar.url : defaultImg
+  );
 
   const loading = useMessageAndErrorUser(navigation, dispatch, "login");
 
@@ -104,12 +111,15 @@ const Profile = ({ navigation, route }) => {
                   text={"Orders"}
                   icon={"format-list-bulleted-square"}
                 />
-                <ButtonBox
-                  handler={navigateHandler}
-                  icon={"view-dashboard"}
-                  text={"Admin"}
-                  reverse={true}
-                />
+                {user?.role === "admin" && (
+                  <ButtonBox
+                    handler={navigateHandler}
+                    icon={"view-dashboard"}
+                    text={"Admin"}
+                    reverse={true}
+                  />
+                )}
+
                 <ButtonBox
                   handler={navigateHandler}
                   text={"Profile"}
