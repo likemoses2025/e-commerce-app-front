@@ -24,7 +24,9 @@ const CameraComponent = ({ navigation, route }) => {
       quality: 1,
     });
 
-    console.log("DAta", data);
+    if (data.canceled) {
+      throw Error("Camera was cancelled");
+    }
 
     if (route.params?.newProduct)
       return navigation.navigate("newproduct", { image: data.assets[0].uri });
