@@ -1,4 +1,5 @@
-import React, { useRef, useState } from "react";
+import { useIsFocused } from "@react-navigation/native";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Dimensions,
   Image,
@@ -10,7 +11,9 @@ import {
 import { Avatar, Button } from "react-native-paper";
 import Carousel from "react-native-snap-carousel";
 import Toast from "react-native-toast-message";
+import { useDispatch, useSelector } from "react-redux";
 import Header from "../components/Header";
+import { getProductDetails } from "../redux/actions/productAction";
 import { colors, defaultStyle } from "../styles/styles";
 
 const SLIDER_WIDTH = Dimensions.get("window").width;
@@ -26,28 +29,14 @@ export const iconOptions = {
 };
 
 const ProductDetails = ({ route: { params } }) => {
-  const [quantity, setQuantity] = useState(1);
-  const stock = 5;
-  const name = "Love";
-  const price = 35252;
-  const description =
-    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of typ";
-  const isCarousel = useRef(null);
+  const dispatch = useDispatch();
+  const isFocused = useIsFocused();
+  const {
+    product: { stock, name, price, description, images },
+  } = useSelector((state) => state.product);
 
-  const images = [
-    {
-      id: "fldsjflk",
-      url: "https://cdn.pixabay.com/photo/2023/01/24/13/23/viet-nam-7741019_960_720.jpg",
-    },
-    {
-      id: "fldsjflkde",
-      url: "https://cdn.pixabay.com/photo/2023/03/14/23/54/darling-7853377_960_720.jpg",
-    },
-    {
-      id: "fldsjflkde2",
-      url: "https://cdn.pixabay.com/photo/2022/09/29/10/46/grass-7487114_960_720.jpg",
-    },
-  ];
+  const [quantity, setQuantity] = useState(1);
+  const isCarousel = useRef(null);
 
   const incrementQty = () => {
     if (quantity < stock) setQuantity((prev) => prev + 1);
@@ -67,6 +56,10 @@ const ProductDetails = ({ route: { params } }) => {
       });
     Toast.show({ type: "success", text1: "Added to Cart" });
   };
+
+  useEffect(() => {
+    dispatch(getProductDetails(params.id));
+  }, [dispatch, params.id, isFocused]);
 
   return (
     <View
