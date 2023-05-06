@@ -51,8 +51,15 @@ const Home = () => {
   useSetCategories(setCategories, isFocused);
 
   useEffect(() => {
-    dispatch(getAllProducts());
-  }, [dispatch]);
+    // 사용자 입력완료 0.5초후 서버요청을 보냄으로 서버요청 최적화
+    const timeOutId = setTimeout(() => {
+      dispatch(getAllProducts(searchQuery, category));
+    }, 500);
+
+    return () => {
+      clearTimeout(timeOutId);
+    };
+  }, [dispatch, searchQuery, category, isFocused]);
 
   return (
     <>
