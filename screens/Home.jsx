@@ -1,5 +1,6 @@
-import { useNavigation } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
+import { useEffect } from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -8,50 +9,32 @@ import {
   View,
 } from "react-native";
 import { Avatar, Button } from "react-native-paper";
+import { useDispatch, useSelector } from "react-redux";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import Heading from "../components/Heading";
 import ProductCard from "../components/ProductCard";
 import SearchModal from "../components/SearchModal";
+import { getAllProducts } from "../redux/actions/productAction";
 import { colors, defaultStyle } from "../styles/styles";
+import { useSetCategories } from "../utils/hooks";
 
-const categories = [
-  { category: "Noodle", _id: "1" },
-  { category: "CupNoodle", _id: "2" },
-  { category: "Snack", _id: "3" },
-  { category: "Sauce", _id: "4" },
-  { category: "Etc", _id: "5" },
-];
-
-export const products = [
-  {
-    price: 23423,
-    stock: 23,
-    category: "Laptop",
-    name: "woman",
-    _id: "dkjhf77222232",
-    images: [
-      {
-        url: "https://cdn.pixabay.com/photo/2023/01/16/19/13/bird-7723137_960_720.jpg",
-      },
-    ],
-  },
-  {
-    price: 13423,
-    stock: 23,
-    category: "IDK",
-    name: "woman2",
-    _id: "d1kjh33f77",
-    images: [
-      {
-        url: "https://cdn.pixabay.com/photo/2023/03/09/14/40/berries-7840199_960_720.jpg",
-      },
-    ],
-  },
-];
+// const categories = [
+//   { category: "Noodle", _id: "1" },
+//   { category: "CupNoodle", _id: "2" },
+//   { category: "Snack", _id: "3" },
+//   { category: "Sauce", _id: "4" },
+//   { category: "Etc", _id: "5" },
+// ];
 
 const Home = () => {
+  const dispatch = useDispatch();
+  const isFocused = useIsFocused();
+  // Store 의 product 에서 state.products를 가져오는 것
+  const { products } = useSelector((state) => state.product);
+
   const [category, setCategory] = useState("");
+  const [categories, setCategories] = useState([]);
   const [activeSearch, setActiveSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -64,6 +47,12 @@ const Home = () => {
   const addToCartHandler = (id) => {
     console.log("Add to Cart", id);
   };
+
+  useSetCategories(setCategories, isFocused);
+
+  useEffect(() => {
+    dispatch(getAllProducts());
+  }, [dispatch]);
 
   return (
     <>
