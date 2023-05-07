@@ -43,7 +43,7 @@ const ProductDetails = ({ route: { params } }) => {
   };
 
   const decrementQty = () => {
-    if (quantity < 0) return;
+    if (quantity <= 1) return;
     setQuantity((prev) => prev - 1);
   };
 
@@ -51,10 +51,23 @@ const ProductDetails = ({ route: { params } }) => {
     if (stock === 0)
       return Toast.show({
         type: "error",
-        text1: "Out of Stock",
-        text2: "i am Text2",
+        text1: "Out Of Stock",
       });
-    Toast.show({ type: "success", text1: "Added to Cart" });
+    dispatch({
+      type: "addToCart",
+      payload: {
+        product: params.id,
+        name,
+        price,
+        image: images[0]?.url,
+        stock,
+        quantity,
+      },
+    });
+    Toast.show({
+      type: "success",
+      text1: "Added To Cart",
+    });
   };
 
   useEffect(() => {

@@ -1,57 +1,60 @@
-import { useIsFocused, useNavigation } from "@react-navigation/native";
-import React, { useState } from "react";
-import { useEffect } from "react";
-import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import { Avatar, Button } from "react-native-paper";
-import { useDispatch, useSelector } from "react-redux";
-import Footer from "../components/Footer";
+import { View, Text, TouchableOpacity, ScrollView } from "react-native";
+import React, { useEffect, useState } from "react";
+import { defaultStyle, colors } from "../styles/styles";
 import Header from "../components/Header";
-import Heading from "../components/Heading";
-import ProductCard from "../components/ProductCard";
+import { Avatar, Button } from "react-native-paper";
 import SearchModal from "../components/SearchModal";
+import ProductCard from "../components/ProductCard";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
+import Footer from "../components/Footer";
+import Heading from "../components/Heading";
+import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../redux/actions/productAction";
-import { colors, defaultStyle } from "../styles/styles";
 import { useSetCategories } from "../utils/hooks";
-
-// const categories = [
-//   { category: "Noodle", _id: "1" },
-//   { category: "CupNoodle", _id: "2" },
-//   { category: "Snack", _id: "3" },
-//   { category: "Sauce", _id: "4" },
-//   { category: "Etc", _id: "5" },
-// ];
+import { Toast } from "react-native-toast-message/lib/src/Toast";
 
 const Home = () => {
-  const dispatch = useDispatch();
-  const isFocused = useIsFocused();
-  // Store 의 product 에서 state.products를 가져오는 것
-  const { products } = useSelector((state) => state.product);
-
   const [category, setCategory] = useState("");
-  const [categories, setCategories] = useState([]);
   const [activeSearch, setActiveSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [categories, setCategories] = useState([]);
 
-  const navigation = useNavigation();
+  const navigate = useNavigation();
+  const dispatch = useDispatch();
+  const isFocused = useIsFocused();
+
+  const { products } = useSelector((state) => state.product);
 
   const categoryButtonHandler = (id) => {
     setCategory(id);
   };
 
-  const addToCartHandler = (id) => {
-    console.log("Add to Cart", id);
+  const addToCardHandler = (id, name, price, image, stock) => {
+    if (stock === 0)
+      return Toast.show({
+        type: "error",
+        text1: "Out Of Stock",
+      });
+    dispatch({
+      type: "addToCart",
+      payload: {
+        product: id,
+        name,
+        price,
+        image,
+        stock,
+        quantity: 1,
+      },
+    });
+    Toast.show({
+      type: "success",
+      text1: "Added To Cart",
+    });
   };
 
   useSetCategories(setCategories, isFocused);
 
   useEffect(() => {
-    // 사용자 입력완료 0.5초후 서버요청을 보냄으로 서버요청 최적화
     const timeOutId = setTimeout(() => {
       dispatch(getAllProducts(searchQuery, category));
     }, 500);
@@ -73,6 +76,7 @@ const Home = () => {
       )}
       <View style={defaultStyle}>
         <Header />
+
         {/* Heading Row */}
         <View
           style={{
@@ -86,23 +90,33 @@ const Home = () => {
           <Heading text1="Our" text2="Products" />
 
           {/* Search Bar */}
+
           <View>
             <TouchableOpacity onPress={() => setActiveSearch((prev) => !prev)}>
               <Avatar.Icon
-                style={{ backgroundColor: colors.color2, elevation: 12 }}
                 icon={"magnify"}
                 size={50}
-                color="gray"
+                color={"gray"}
+                style={{ backgroundColor: colors.color2, elevation: 12 }}
               />
             </TouchableOpacity>
           </View>
         </View>
 
-        <View style={{ flexDirection: "row", height: 80 }}>
+        {/* Categories */}
+
+        <View
+          style={{
+            flexDirection: "row",
+            height: 80,
+          }}
+        >
           <ScrollView
             horizontal
+            contentContainerStyle={{
+              alignItems: "center",
+            }}
             showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{ alignItems: "center" }}
           >
             {categories.map((item, index) => (
               <Button
@@ -129,29 +143,29 @@ const Home = () => {
         </View>
 
         {/* Products */}
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {products.map((item, index) => {
-            return (
+
+        <View style={{ flex: 1 }}>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {products.map((item, index) => (
               <ProductCard
                 stock={item.stock}
                 name={item.name}
                 price={item.price}
                 image={item.images[0]?.url}
-                addToCartHandler={addToCartHandler}
+                addToCardHandler={addToCardHandler}
                 id={item._id}
                 key={item._id}
                 i={index}
-                navigation={navigation}
+                navigate={navigate}
               />
-            );
-          })}
-        </ScrollView>
+            ))}
+          </ScrollView>
+        </View>
       </View>
+
       <Footer activeRoute={"home"} />
     </>
   );
 };
 
 export default Home;
-
-const styles = StyleSheet.create({});

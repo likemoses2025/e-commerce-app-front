@@ -6,100 +6,136 @@ import Heading from "../components/Heading";
 import { Button } from "react-native-paper";
 import CartItem from "../components/CartItem";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import Toast from "react-native-toast-message";
 
-export const cartItem = [
-  {
-    name: "Dog",
-    image:
-      "https://cdn.pixabay.com/photo/2022/12/02/05/13/dog-7630252_960_720.jpg",
-    product: "adkjfld",
-    stock: 3,
-    price: 45999,
-    quantity: 3,
-  },
-  {
-    name: "Monkey",
-    image:
-      "https://cdn.pixabay.com/photo/2023/02/18/13/48/barbary-macaque-7797970_960_720.jpg",
-    product: "dl;f;1",
-    stock: 4,
-    price: 35999,
-    quantity: 2,
-  },
-  {
-    name: "Cat",
-    image:
-      "https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554_960_720.jpg",
-    product: "adkjfld1",
-    stock: 4,
-    price: 25999,
-    quantity: 3,
-  },
-  {
-    name: "Cat",
-    image:
-      "https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554_960_720.jpg",
-    product: "adkjfld21",
-    stock: 4,
-    price: 25999,
-    quantity: 3,
-  },
-  {
-    name: "Cat",
-    image:
-      "https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554_960_720.jpg",
-    product: "adkjfld231",
-    stock: 4,
-    price: 25999,
-    quantity: 3,
-  },
-  {
-    name: "Cat",
-    image:
-      "https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554_960_720.jpg",
-    product: "adkjfl4d121",
-    stock: 4,
-    price: 25999,
-    quantity: 3,
-  },
-  {
-    name: "Cat",
-    image:
-      "https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554_960_720.jpg",
-    product: "adkjfl4d221",
-    stock: 4,
-    price: 25999,
-    quantity: 3,
-  },
-  {
-    name: "Cat",
-    image:
-      "https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554_960_720.jpg",
-    product: "adkjfl43d21",
-    stock: 4,
-    price: 25999,
-    quantity: 3,
-  },
-  {
-    name: "Cat",
-    image:
-      "https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554_960_720.jpg",
-    product: "adkjfl44d21",
-    stock: 4,
-    price: 25999,
-    quantity: 3,
-  },
-];
+// export const cartItem = [
+//   {
+//     name: "Dog",
+//     image:
+//       "https://cdn.pixabay.com/photo/2022/12/02/05/13/dog-7630252_960_720.jpg",
+//     product: "adkjfld",
+//     stock: 3,
+//     price: 45999,
+//     quantity: 3,
+//   },
+//   {
+//     name: "Monkey",
+//     image:
+//       "https://cdn.pixabay.com/photo/2023/02/18/13/48/barbary-macaque-7797970_960_720.jpg",
+//     product: "dl;f;1",
+//     stock: 4,
+//     price: 35999,
+//     quantity: 2,
+//   },
+//   {
+//     name: "Cat",
+//     image:
+//       "https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554_960_720.jpg",
+//     product: "adkjfld1",
+//     stock: 4,
+//     price: 25999,
+//     quantity: 3,
+//   },
+//   {
+//     name: "Cat",
+//     image:
+//       "https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554_960_720.jpg",
+//     product: "adkjfld21",
+//     stock: 4,
+//     price: 25999,
+//     quantity: 3,
+//   },
+//   {
+//     name: "Cat",
+//     image:
+//       "https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554_960_720.jpg",
+//     product: "adkjfld231",
+//     stock: 4,
+//     price: 25999,
+//     quantity: 3,
+//   },
+//   {
+//     name: "Cat",
+//     image:
+//       "https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554_960_720.jpg",
+//     product: "adkjfl4d121",
+//     stock: 4,
+//     price: 25999,
+//     quantity: 3,
+//   },
+//   {
+//     name: "Cat",
+//     image:
+//       "https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554_960_720.jpg",
+//     product: "adkjfl4d221",
+//     stock: 4,
+//     price: 25999,
+//     quantity: 3,
+//   },
+//   {
+//     name: "Cat",
+//     image:
+//       "https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554_960_720.jpg",
+//     product: "adkjfl43d21",
+//     stock: 4,
+//     price: 25999,
+//     quantity: 3,
+//   },
+//   {
+//     name: "Cat",
+//     image:
+//       "https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554_960_720.jpg",
+//     product: "adkjfl44d21",
+//     stock: 4,
+//     price: 25999,
+//     quantity: 3,
+//   },
+// ];
 
 const Cart = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const { cartItems } = useSelector((state) => state.cart);
 
-  const incrementHandler = (id, qty, stock) => {
-    console.log("Increment", id, qty, stock);
+  const incrementHandler = (id, name, price, image, stock, quantity) => {
+    const newQty = quantity + 1;
+
+    if (stock <= quantity)
+      return Toast.show({ type: "error", text1: "Maximum value added" });
+
+    dispatch({
+      type: "addToCart",
+      payload: {
+        product: id,
+        name,
+        price,
+        image,
+        stock,
+        quantity: newQty,
+      },
+    });
   };
-  const decrementHandler = (id, qty) => {
-    console.log("decrement", id, qty);
+  const decrementHandler = (id, name, price, image, stock, quantity) => {
+    const newQty = quantity - 1;
+
+    if (1 >= quantity) return dispatch({ type: "removeFromCart", payload: id });
+
+    dispatch({
+      type: "addToCart",
+      payload: {
+        product: id,
+        name,
+        price,
+        image,
+        stock,
+        quantity: newQty,
+      },
+    });
   };
+
+  useEffect(() => {}, []);
 
   return (
     <View style={{ ...defaultStyle, padding: 0 }}>
@@ -111,21 +147,34 @@ const Cart = () => {
       />
       <View style={{ flex: 1, paddingVertical: 20 }}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          {cartItem.map((item, index) => (
-            <CartItem
-              key={item.product}
-              id={item.product}
-              name={item.name}
-              stock={item.stock}
-              amount={item.price}
-              imgSrc={item.image}
-              index={index}
-              qty={item.quantity}
-              incrementHandler={incrementHandler}
-              decrementHandler={decrementHandler}
-              navigation={navigation}
-            />
-          ))}
+          {cartItems.length > 0 ? (
+            cartItems.map((item, index) => (
+              <CartItem
+                key={item.product}
+                id={item.product}
+                name={item.name}
+                stock={item.stock}
+                amount={item.price}
+                imgSrc={item.image}
+                index={index}
+                qty={item.quantity}
+                incrementHandler={incrementHandler}
+                decrementHandler={decrementHandler}
+                navigation={navigation}
+              />
+            ))
+          ) : (
+            <Text
+              style={{
+                textAlign: "center",
+                fontSize: 20,
+                marginTop: 100,
+                fontWeight: "500",
+              }}
+            >
+              No Items Yet!!
+            </Text>
+          )}
         </ScrollView>
       </View>
       <View
@@ -135,12 +184,20 @@ const Cart = () => {
           paddingHorizontal: 35,
         }}
       >
-        <Text>5Item</Text>
-        <Text>5 Won</Text>
+        <Text>{cartItems.length} Item</Text>
+        <Text>
+          {cartItems.reduce(
+            (prev, curr) => prev + curr.quantity * curr.price,
+            0
+          )}{" "}
+          Won
+        </Text>
       </View>
       <TouchableOpacity
         onPress={
-          cartItem.length > 0 ? () => navigation.navigate("confirmorder") : null
+          cartItems.length > 0
+            ? () => navigation.navigate("confirmorder")
+            : null
         }
       >
         <Button

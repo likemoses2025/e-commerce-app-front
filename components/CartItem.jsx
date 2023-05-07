@@ -14,10 +14,16 @@ const CartItem = ({
   id,
   decrementHandler,
   incrementHandler,
-  navigation,
+  navigate,
 }) => {
   return (
-    <View style={{ height: 100, flexDirection: "row", marginVertical: 20 }}>
+    <View
+      style={{
+        flexDirection: "row",
+        height: 100,
+        marginVertical: 20,
+      }}
+    >
       <View
         style={{
           width: "40%",
@@ -26,26 +32,52 @@ const CartItem = ({
           borderBottomRightRadius: 100,
         }}
       >
-        <Image source={{ uri: imgSrc }} style={styles.img} />
+        <Image
+          source={{
+            uri: imgSrc,
+          }}
+          style={styles.img}
+        />
       </View>
-      <View style={{ width: "40%", paddingHorizontal: 25 }}>
+      <View
+        style={{
+          width: "40%",
+          paddingHorizontal: 25,
+        }}
+      >
         <Text
           numberOfLines={1}
-          style={{ fontSize: 17 }}
-          onPress={navigation.navigate("productdetails", { id })}
+          style={{
+            fontSize: 17,
+          }}
+          onPress={() => navigate.navigate("productdetails", { id })}
         >
           {name}
         </Text>
-        <Text numberOfLines={1} style={{ fontSize: 17, fontWeight: "900" }}>
-          {amount}
+
+        <Text
+          numberOfLines={1}
+          style={{
+            fontSize: 17,
+            fontWeight: "900",
+          }}
+        >
+          ₹{amount}
         </Text>
       </View>
+
       <View style={styles.qtyContainer}>
-        <TouchableOpacity onPress={() => decrementHandler(id, qty)}>
+        <TouchableOpacity
+          onPress={() => decrementHandler(id, name, amount, imgSrc, stock, qty)}
+        >
           <Avatar.Icon icon={"minus"} {...iconOptions} />
         </TouchableOpacity>
+
         <Text style={styles.qtyText}>{qty}</Text>
-        <TouchableOpacity onPress={() => incrementHandler(id, qty, stock)}>
+
+        <TouchableOpacity
+          onPress={() => incrementHandler(id, name, amount, imgSrc, stock, qty)}
+        >
           <Avatar.Icon icon={"plus"} {...iconOptions} />
         </TouchableOpacity>
       </View>
@@ -54,6 +86,13 @@ const CartItem = ({
 };
 
 const styles = StyleSheet.create({
+  img: {
+    width: 200,
+    height: "100%",
+    resizeMode: "contain",
+    top: "-20%",
+    left: "10%",
+  },
   qtyText: {
     backgroundColor: colors.color4,
     height: 25,
@@ -70,13 +109,6 @@ const styles = StyleSheet.create({
     height: 80,
     justifyContent: "space-between",
     alignSelf: "center",
-  },
-  img: {
-    width: 200,
-    height: "100%",
-    resizeMode: "contain",
-    top: "-20%",
-    left: "10%",
   },
 });
 
