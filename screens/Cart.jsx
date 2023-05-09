@@ -135,8 +135,6 @@ const Cart = () => {
     });
   };
 
-  useEffect(() => {}, []);
-
   return (
     <View style={{ ...defaultStyle, padding: 0 }}>
       <Header back={true} emptyCart={true} />
@@ -189,7 +187,7 @@ const Cart = () => {
           {cartItems.reduce(
             (prev, curr) => prev + curr.quantity * curr.price,
             0
-          )}{" "}
+          )}
           Won
         </Text>
       </View>

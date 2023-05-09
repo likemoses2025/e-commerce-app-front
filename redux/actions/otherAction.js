@@ -86,3 +86,55 @@ export const updatePic = (formData) => async (dispatch) => {
     });
   }
 };
+
+export const placeOrder =
+  (
+    shippingInfo,
+    orderItems,
+    paymentMethod,
+    paymentInfo,
+    itemsPrice,
+    taxPrice,
+    shippingCharges,
+    totalAmount
+  ) =>
+  async (dispatch) => {
+    try {
+      dispatch({
+        type: "placeOrderRequest",
+      });
+
+      console.log("action1");
+      const { data } = await axios.post(
+        `${server}/order/new`,
+        {
+          shippingInfo,
+          orderItems,
+          paymentMethod,
+          paymentInfo,
+          itemsPrice,
+          taxPrice,
+          shippingCharges,
+          totalAmount,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      );
+      console.log("action2");
+      dispatch({
+        type: "placeOrderSuccess",
+        payload: data.message,
+      });
+      console.log("action3");
+    } catch (error) {
+      console.log("action Error", error);
+      dispatch({
+        type: "placeOrderFail",
+        payload: error.response.data.message,
+      });
+    }
+  };
