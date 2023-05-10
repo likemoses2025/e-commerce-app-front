@@ -60,7 +60,7 @@ export const updateProfile =
       });
     } catch (error) {
       dispatch({
-        type: "updateProfileFail",
+        type: "updateProfileFailure",
         payload: error.response.data.message,
       });
     }
@@ -81,7 +81,7 @@ export const updatePic = (formData) => async (dispatch) => {
     });
   } catch (error) {
     dispatch({
-      type: "updatePicFail",
+      type: "updatePicFailure",
       payload: error.response.data.message,
     });
   }
@@ -130,7 +130,7 @@ export const placeOrder =
       });
     } catch (error) {
       dispatch({
-        type: "placeOrderFail",
+        type: "placeOrderFailure",
         payload: error.response.data.message,
       });
     }
@@ -155,7 +155,59 @@ export const processOrder = (id) => async (dispatch) => {
   } catch (error) {
     console.log("Error", error);
     dispatch({
-      type: "processOrderFail",
+      type: "processOrderFailure",
+      payload: error.response.data.message,
+    });
+  }
+};
+
+export const addCategory = (category) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "addCategoryRequest",
+    });
+
+    const { data } = await axios.post(
+      `${server}/product/category`,
+      {
+        category,
+      },
+      { headers: { "Content-Type": "application/json" }, withCredentials: true }
+    );
+
+    dispatch({
+      type: "addCategorySuccess",
+      payload: data.message,
+    });
+  } catch (error) {
+    console.log("Error", error);
+    dispatch({
+      type: "addCategoryFailure",
+      payload: error.response.data.message,
+    });
+  }
+};
+
+export const deleteCategory = (id) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "deleteCategoryRequest",
+    });
+
+    const { data } = await axios.delete(
+      `${server}/product/category/${id}`,
+
+      {
+        withCredentials: true,
+      }
+    );
+    dispatch({
+      type: "deleteCategorySuccess",
+      payload: data.message,
+    });
+  } catch (error) {
+    dispatch({
+      type: "deleteCategoryFailure",
       payload: error.response.data.message,
     });
   }

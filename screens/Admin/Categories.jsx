@@ -9,32 +9,29 @@ import {
 import Header from "../../components/Header";
 import { StyleSheet } from "react-native";
 import { Avatar, Button, TextInput } from "react-native-paper";
+import { useMessageAndErrorOther, useSetCategories } from "../../utils/hooks";
+import { useIsFocused } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
+import { addCategory, deleteCategory } from "../../redux/actions/otherAction";
 
-const categories = [
-  {
-    name: "LapTop",
-    _id: "dkjfldjflsdjkf2",
-  },
-  {
-    name: "MackBook",
-    _id: "dkjfldjfl12sdjkf2",
-  },
-  {
-    name: "IPAD",
-    _id: "dkjfldjf2l2sdjkf2",
-  },
-];
-
-const Categories = () => {
+const Categories = ({ navigation }) => {
   const [category, setCategory] = useState("");
+  const [categories, setCategories] = useState([]);
+
+  const isFocused = useIsFocused();
+  const dispatch = useDispatch();
+
+  useSetCategories(setCategories, isFocused);
+
+  const loading = useMessageAndErrorOther(dispatch, navigation, "adminpanel");
 
   const deleteHandler = (id) => {
-    console.log(`Deleting Category, ${id}`);
+    dispatch(deleteCategory(id));
   };
 
-  const submitHandler = () => {};
-
-  const loading = false;
+  const submitHandler = () => {
+    dispatch(addCategory(category));
+  };
 
   return (
     <View style={{ ...defaultStyle, backgroundColor: colors.color5 }}>
@@ -54,7 +51,7 @@ const Categories = () => {
         >
           {categories.map((i) => (
             <CategoryCard
-              name={i.name}
+              name={i.category}
               id={i._id}
               key={i._id}
               deleteHandler={deleteHandler}
