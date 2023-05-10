@@ -39,7 +39,9 @@ const ProductDetails = ({ route: { params } }) => {
   const isCarousel = useRef(null);
 
   const incrementQty = () => {
-    if (quantity < stock) setQuantity((prev) => prev + 1);
+    if (quantity < stock)
+      return Toast.show({ type: "error", text1: "Maximum Value Added" });
+    setQuantity((prev) => prev + 1);
   };
 
   const decrementQty = () => {

@@ -5,9 +5,10 @@ import Header from "../../components/Header";
 import Loader from "../../components/Loader";
 import ButtonBox from "../../components/ButtonBox";
 import ProductListHeading from "../../components/ProductListHeading";
-import { products } from "../Home";
 import ProductListItem from "../ProductListItem";
 import Chart from "../../components/Chart";
+
+const products = [];
 
 const AdminPanel = ({ navigation }) => {
   const loading = false;

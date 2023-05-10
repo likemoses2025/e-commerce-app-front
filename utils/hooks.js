@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Toast from "react-native-toast-message";
 import { useSelector } from "react-redux";
 import { loadUser } from "../redux/actions/userAction";
@@ -91,4 +91,29 @@ export const useSetCategories = (setCategories, isFocused) => {
         Toast.show({ type: "error", text1: e.response.data.message });
       });
   }, [isFocused]);
+};
+
+export const useGetOrders = (isFocused, isAdmin = false) => {
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    console.log("Working 1");
+    setLoading(true);
+    axios
+      .get(`${server}/order/${isAdmin ? "admin" : "my"}`)
+      .then((res) => {
+        setOrders(res.data.orders);
+        setLoading(false);
+        console.log("Working 2");
+      })
+      .catch((e) => {
+        console.log("Working 3");
+        console.log("Working error", error);
+        Toast.show({ type: "error", text1: e.response.data.message });
+        setLoading(false);
+      });
+  }, [isFocused]);
+
+  return { loading, orders };
 };

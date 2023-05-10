@@ -11,12 +11,14 @@ import { Toast } from "react-native-toast-message/lib/src/Toast";
 import axios from "axios";
 import { server } from "../redux/store";
 import Loader from "../components/Loader";
+import { useStripe } from "@stripe/stripe-react-native";
 
 const Payment = ({ navigation, route }) => {
   const [paymentMethod, setPaymentMethod] = useState("COD");
   const [loaderLoading, setLoaderLoading] = useState(false);
 
   const dispatch = useDispatch();
+  const stripe = useStripe();
 
   const { isAuthenticated, user } = useSelector((state) => state.user);
   const { cartItems } = useSelector((state) => state.cart);
@@ -69,7 +71,7 @@ const Payment = ({ navigation, route }) => {
 
       const init = await stripe.initPaymentSheet({
         paymentIntentClientSecret: client_secret,
-        merchantDisplayName: "6PackEcom",
+        merchantDisplayName: "Buho-Winwin.com",
       });
 
       if (init.error)

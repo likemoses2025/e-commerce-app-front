@@ -1,3 +1,4 @@
+import { useIsFocused } from "@react-navigation/native";
 import React from "react";
 import { ScrollView, Text, View } from "react-native";
 import { Headline } from "react-native-paper";
@@ -5,64 +6,68 @@ import Header from "../components/Header";
 import Loader from "../components/Loader";
 import OrderItem from "../components/OrderItem";
 import { defaultStyle, formHeading } from "../styles/styles";
+import { useGetOrders } from "../utils/hooks";
 
-export const orders = [
-  {
-    _id: "dljfldsjfld",
-    shippingInfo: {
-      address: "73 easter",
-      city: "Newyork",
-      country: "India",
-      pinCode: 202322,
-    },
-    createdAt: "12-2-2022T2343",
-    orderStatus: "Processing",
-    paymentMethod: "COD",
-    totalAmount: 20000,
-  },
-  {
-    _id: "dljfldsjfeld2",
-    shippingInfo: {
-      address: "73 easter",
-      city: "Newyork",
-      country: "India",
-      pinCode: 202322,
-    },
-    createdAt: "12-2-2022T2343",
-    orderStatus: "Processing",
-    paymentMethod: "ONLINE",
-    totalAmount: 20000,
-  },
-  {
-    _id: "dlj23fldsjfeld2",
-    shippingInfo: {
-      address: "73 easter",
-      city: "Newyork",
-      country: "India",
-      pinCode: 202322,
-    },
-    createdAt: "12-2-2022T2343",
-    orderStatus: "Processing",
-    paymentMethod: "ONLINE",
-    totalAmount: 20000,
-  },
-  {
-    _id: "dljfldsj42feld2",
-    shippingInfo: {
-      address: "73 easter",
-      city: "Newyork",
-      country: "India",
-      pinCode: 202322,
-    },
-    createdAt: "12-2-2022T2343",
-    orderStatus: "Processing",
-    paymentMethod: "ONLINE",
-    totalAmount: 20000,
-  },
-];
+// export const orders = [
+//   {
+//     _id: "dljfldsjfld",
+//     shippingInfo: {
+//       address: "73 easter",
+//       city: "Newyork",
+//       country: "India",
+//       pinCode: 202322,
+//     },
+//     createdAt: "12-2-2022T2343",
+//     orderStatus: "Processing",
+//     paymentMethod: "COD",
+//     totalAmount: 20000,
+//   },
+//   {
+//     _id: "dljfldsjfeld2",
+//     shippingInfo: {
+//       address: "73 easter",
+//       city: "Newyork",
+//       country: "India",
+//       pinCode: 202322,
+//     },
+//     createdAt: "12-2-2022T2343",
+//     orderStatus: "Processing",
+//     paymentMethod: "ONLINE",
+//     totalAmount: 20000,
+//   },
+//   {
+//     _id: "dlj23fldsjfeld2",
+//     shippingInfo: {
+//       address: "73 easter",
+//       city: "Newyork",
+//       country: "India",
+//       pinCode: 202322,
+//     },
+//     createdAt: "12-2-2022T2343",
+//     orderStatus: "Processing",
+//     paymentMethod: "ONLINE",
+//     totalAmount: 20000,
+//   },
+//   {
+//     _id: "dljfldsj42feld2",
+//     shippingInfo: {
+//       address: "73 easter",
+//       city: "Newyork",
+//       country: "India",
+//       pinCode: 202322,
+//     },
+//     createdAt: "12-2-2022T2343",
+//     orderStatus: "Processing",
+//     paymentMethod: "ONLINE",
+//     totalAmount: 20000,
+//   },
+// ];
 
 const Orders = () => {
-  const loading = false;
+  const isFocused = useIsFocused();
+  const { loading, orders } = useGetOrders(isFocused);
+
+  console.log(orders);
 
   return (
     <View style={defaultStyle}>

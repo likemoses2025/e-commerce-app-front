@@ -1,16 +1,28 @@
-import { View, Text, ScrollView } from "react-native";
+import { useIsFocused } from "@react-navigation/native";
 import React from "react";
-import { colors, defaultStyle, formHeading } from "../../styles/styles";
+import { ScrollView, Text, View } from "react-native";
+import { Headline } from "react-native-paper";
+import { useDispatch } from "react-redux";
 import Header from "../../components/Header";
 import Loader from "../../components/Loader";
 import OrderItem from "../../components/OrderItem";
-import { orders } from "../Orders";
+import { processOrder } from "../../redux/actions/otherAction";
+import { colors, defaultStyle, formHeading } from "../../styles/styles";
+import { useGetOrders, useMessageAndErrorOther } from "../../utils/hooks";
 
-const AdminOrder = () => {
-  const loading = false;
-  const processOrderLoading = false;
+const AdminOrder = ({ navigation }) => {
+  const isFocused = useIsFocused();
+  const dispatch = useDispatch();
+  const { loading, orders } = useGetOrders(isFocused, true);
+  const processOrderLoading = useMessageAndErrorOther(
+    dispatch,
+    navigation,
+    "adminpanel"
+  );
 
-  const updateHandler = () => {};
+  const updateHandler = (id) => {
+    dispatch(processOrder(id));
+  };
 
   return (
     <View style={{ ...defaultStyle, backgroundColor: colors.color5 }}>

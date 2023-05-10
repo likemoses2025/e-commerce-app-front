@@ -104,7 +104,6 @@ export const placeOrder =
         type: "placeOrderRequest",
       });
 
-      console.log("action1");
       const { data } = await axios.post(
         `${server}/order/new`,
         {
@@ -124,17 +123,40 @@ export const placeOrder =
           withCredentials: true,
         }
       );
-      console.log("action2");
+
       dispatch({
         type: "placeOrderSuccess",
         payload: data.message,
       });
-      console.log("action3");
     } catch (error) {
-      console.log("action Error", error);
       dispatch({
         type: "placeOrderFail",
         payload: error.response.data.message,
       });
     }
   };
+
+export const processOrder = (id) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "processOrderRequest",
+    });
+
+    const { data } = await axios.put(
+      `${server}/order/single/${id}`,
+      {},
+      { withCredentials: true }
+    );
+
+    dispatch({
+      type: "processOrderSuccess",
+      payload: data.message,
+    });
+  } catch (error) {
+    console.log("Error", error);
+    dispatch({
+      type: "processOrderFail",
+      payload: error.response.data.message,
+    });
+  }
+};
