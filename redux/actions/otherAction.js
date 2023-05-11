@@ -271,3 +271,28 @@ export const updateProductAction =
       });
     }
   };
+
+export const addProductImage = (formData) => async (dispatch) => {
+  try {
+    dispatch({ type: "addProductImageRequest" });
+
+    const { data } = await axios.post(
+      `${server}/product/image/${id}`,
+      formData,
+      {
+        headers: { "Content-Type": "multipart/form-data" },
+        withCredentials: true,
+      }
+    );
+
+    dispatch({
+      type: "addProductImageSuccess",
+      payload: data.message,
+    });
+  } catch (error) {
+    dispatch({
+      type: "addProductImageFailure",
+      payload: error.response.data.message,
+    });
+  }
+};
