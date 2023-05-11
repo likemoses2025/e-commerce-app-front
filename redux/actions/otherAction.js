@@ -212,3 +212,61 @@ export const deleteCategory = (id) => async (dispatch) => {
     });
   }
 };
+
+export const createProduct = (formData) => async (dispatch) => {
+  try {
+    dispatch({ type: "addProductRequest" });
+
+    const { data } = await axios.post(`${server}/product/new`, formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+      withCredentials: true,
+    });
+
+    dispatch({
+      type: "addProductSuccess",
+      payload: data.message,
+    });
+  } catch (error) {
+    dispatch({
+      type: "addProductFailure",
+      payload: error.response.data.message,
+    });
+  }
+};
+
+export const updateProductAction =
+  (name, description, category, price, stock, id) => async (dispatch) => {
+    console.log("ID : " + id);
+    try {
+      dispatch({
+        type: "updateProductRequest",
+      });
+
+      const { data } = await axios.put(
+        `${server}/product/single/${id}`,
+        {
+          name,
+          description,
+          category,
+          price,
+          stock,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      );
+
+      dispatch({
+        type: "updateProductSuccess",
+        payload: data.message,
+      });
+    } catch (error) {
+      dispatch({
+        type: "updateProductFailure",
+        payload: error?.response.data.message,
+      });
+    }
+  };

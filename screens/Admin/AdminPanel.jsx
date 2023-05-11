@@ -11,8 +11,6 @@ import { useAdminProducts } from "../../utils/hooks";
 import { useIsFocused } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 
-const products = [];
-
 const AdminPanel = ({ navigation }) => {
   const isFocused = useIsFocused();
   const dispatch = useDispatch();

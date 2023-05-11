@@ -3,8 +3,9 @@ import { server } from "../store";
 
 export const getAllProducts = (keyword, category) => async (dispatch) => {
   try {
-    dispatch({ type: "getAllProductsRequest" });
-
+    dispatch({
+      type: "getAllProductsRequest",
+    });
     const { data } = await axios.get(
       `${server}/product/all?keyword=${keyword}&category=${category}`,
       {
@@ -12,7 +13,10 @@ export const getAllProducts = (keyword, category) => async (dispatch) => {
       }
     );
 
-    dispatch({ type: "getAllProductsSuccess", payload: data.products });
+    dispatch({
+      type: "getAllProductsSuccess",
+      payload: data.products,
+    });
   } catch (error) {
     dispatch({
       type: "getAllProductsFailure",

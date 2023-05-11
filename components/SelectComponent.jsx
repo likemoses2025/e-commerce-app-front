@@ -17,7 +17,6 @@ const SelectComponent = ({
   categories = [],
 }) => {
   const setCategoryHandler = (item) => {
-    console.log(item);
     setCategory(item.category);
     setCategoryID(item._id);
     setVisible(false);

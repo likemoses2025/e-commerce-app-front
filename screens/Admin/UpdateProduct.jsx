@@ -11,38 +11,58 @@ import Header from "../../components/Header";
 import Loader from "../../components/Loader";
 import { Button, TextInput } from "react-native-paper";
 import SelectComponent from "../../components/SelectComponent";
+import { useMessageAndErrorOther, useSetCategories } from "../../utils/hooks";
+import { useIsFocused } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
+import { updateProductAction } from "../../redux/actions/otherAction";
+import { useEffect } from "react";
+import { getProductDetails } from "../../redux/actions/productAction";
 
 const UpdateProduct = ({ navigation, route }) => {
-  const loading = false;
-  const loadingOther = false;
-  const images = [
-    {
-      url: "https://www.istockphoto.com/resources/images/PhotoFTLP/1040315976.jpg",
-      _id: "ldjfldj2fldd1",
-    },
-    {
-      url: "https://cdn.pixabay.com/photo/2023/02/18/13/48/barbary-macaque-7797970_960_720.jpg",
-      _id: "ldjfld34jfldd2",
-    },
-  ];
+  const isFocused = useIsFocused();
+  const dispatch = useDispatch();
+  const [visiable, setVisiable] = useState(false);
+
+  const { product, loading } = useSelector((state) => state.product);
 
   const [id] = useState(route.params.id);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [stock, setStock] = useState("");
-  const [category, setCategory] = useState("LapTop");
+  const [category, setCategory] = useState("");
   const [categoryID, setCategoryID] = useState("");
-  const [categories, setCategories] = useState([
-    { _id: "dlf1jlsd", category: "LapTop" },
-    { _id: "dlfd2jlsd", category: "Footwear" },
-    { _id: "dlfjfs3lsd", category: "Cloths" },
-  ]);
-  const [visiable, setVisiable] = useState(false);
+  const [categories, setCategories] = useState([]);
+
+  console.log(id);
+
+  const loadingOther = useMessageAndErrorOther(
+    dispatch,
+    navigation,
+    "adminpanel"
+  );
+  useSetCategories(setCategories, isFocused);
 
   const submitHandler = () => {
-    console.log(name, description, price, stock, categoryID);
+    dispatch(
+      updateProductAction(id, name, description, price, stock, categoryID)
+    );
   };
+
+  useEffect(() => {
+    dispatch(getProductDetails(id));
+  }, [dispatch, id, isFocused]);
+
+  useEffect(() => {
+    if (product) {
+      setName(product.name);
+      setDescription(product.description);
+      setPrice(String(product.price));
+      setStock(String(product.stock));
+      setCategory(product.category?.category);
+      setCategoryID(product.category?._id);
+    }
+  }, [product]);
 
   return (
     <>
@@ -69,7 +89,7 @@ const UpdateProduct = ({ navigation, route }) => {
                 onPress={() =>
                   navigation.navigate("productimages", {
                     id: id,
-                    images: images,
+                    images: product.images,
                   })
                 }
               >

@@ -99,18 +99,14 @@ export const useGetOrders = (isFocused, isAdmin = false) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    console.log("Working 1");
     setLoading(true);
     axios
       .get(`${server}/order/${isAdmin ? "admin" : "my"}`)
       .then((res) => {
         setOrders(res.data.orders);
         setLoading(false);
-        console.log("Working 2");
       })
       .catch((e) => {
-        console.log("Working 3");
-        console.log("Working error", error);
         Toast.show({ type: "error", text1: e.response.data.message });
         setLoading(false);
       });

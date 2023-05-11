@@ -1,98 +1,13 @@
-import { View, Text, TouchableOpacity, ScrollView } from "react-native";
-import React from "react";
-import Header from "../components/Header";
-import { colors, defaultStyle } from "../styles/styles";
-import Heading from "../components/Heading";
-import { Button } from "react-native-paper";
-import CartItem from "../components/CartItem";
 import { useNavigation } from "@react-navigation/native";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import React from "react";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { Button } from "react-native-paper";
 import Toast from "react-native-toast-message";
-
-// export const cartItem = [
-//   {
-//     name: "Dog",
-//     image:
-//       "https://cdn.pixabay.com/photo/2022/12/02/05/13/dog-7630252_960_720.jpg",
-//     product: "adkjfld",
-//     stock: 3,
-//     price: 45999,
-//     quantity: 3,
-//   },
-//   {
-//     name: "Monkey",
-//     image:
-//       "https://cdn.pixabay.com/photo/2023/02/18/13/48/barbary-macaque-7797970_960_720.jpg",
-//     product: "dl;f;1",
-//     stock: 4,
-//     price: 35999,
-//     quantity: 2,
-//   },
-//   {
-//     name: "Cat",
-//     image:
-//       "https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554_960_720.jpg",
-//     product: "adkjfld1",
-//     stock: 4,
-//     price: 25999,
-//     quantity: 3,
-//   },
-//   {
-//     name: "Cat",
-//     image:
-//       "https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554_960_720.jpg",
-//     product: "adkjfld21",
-//     stock: 4,
-//     price: 25999,
-//     quantity: 3,
-//   },
-//   {
-//     name: "Cat",
-//     image:
-//       "https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554_960_720.jpg",
-//     product: "adkjfld231",
-//     stock: 4,
-//     price: 25999,
-//     quantity: 3,
-//   },
-//   {
-//     name: "Cat",
-//     image:
-//       "https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554_960_720.jpg",
-//     product: "adkjfl4d121",
-//     stock: 4,
-//     price: 25999,
-//     quantity: 3,
-//   },
-//   {
-//     name: "Cat",
-//     image:
-//       "https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554_960_720.jpg",
-//     product: "adkjfl4d221",
-//     stock: 4,
-//     price: 25999,
-//     quantity: 3,
-//   },
-//   {
-//     name: "Cat",
-//     image:
-//       "https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554_960_720.jpg",
-//     product: "adkjfl43d21",
-//     stock: 4,
-//     price: 25999,
-//     quantity: 3,
-//   },
-//   {
-//     name: "Cat",
-//     image:
-//       "https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554_960_720.jpg",
-//     product: "adkjfl44d21",
-//     stock: 4,
-//     price: 25999,
-//     quantity: 3,
-//   },
-// ];
+import { useDispatch, useSelector } from "react-redux";
+import CartItem from "../components/CartItem";
+import Header from "../components/Header";
+import Heading from "../components/Heading";
+import { colors, defaultStyle } from "../styles/styles";
 
 const Cart = () => {
   const navigation = useNavigation();
