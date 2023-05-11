@@ -21,7 +21,7 @@ import { getProductDetails } from "../../redux/actions/productAction";
 const UpdateProduct = ({ navigation, route }) => {
   const isFocused = useIsFocused();
   const dispatch = useDispatch();
-  const [visiable, setVisiable] = useState(false);
+  const [visible, setVisible] = useState(false);
 
   const { product, loading } = useSelector((state) => state.product);
 
@@ -34,8 +34,6 @@ const UpdateProduct = ({ navigation, route }) => {
   const [categoryID, setCategoryID] = useState("");
   const [categories, setCategories] = useState([]);
 
-  console.log(id);
-
   const loadingOther = useMessageAndErrorOther(
     dispatch,
     navigation,
@@ -45,7 +43,7 @@ const UpdateProduct = ({ navigation, route }) => {
 
   const submitHandler = () => {
     dispatch(
-      updateProductAction(id, name, description, price, stock, categoryID)
+      updateProductAction(id, name, description, categoryID, price, stock)
     );
   };
 
@@ -66,12 +64,19 @@ const UpdateProduct = ({ navigation, route }) => {
 
   return (
     <>
-      <View style={{ ...defaultStyle, backgroundColor: colors.color5 }}>
+      <View
+        style={{
+          ...defaultStyle,
+          backgroundColor: colors.color5,
+        }}
+      >
         <Header back={true} />
+
         {/* Heading */}
         <View style={{ marginBottom: 20, paddingTop: 70 }}>
           <Text style={formHeading}>Update Product</Text>
         </View>
+
         {loading ? (
           <Loader />
         ) : (
@@ -83,18 +88,24 @@ const UpdateProduct = ({ navigation, route }) => {
               backgroundColor: colors.color3,
             }}
           >
-            <View style={{ justifyContent: "center", height: 650 }}>
+            <View
+              style={{
+                justifyContent: "center",
+                height: 650,
+              }}
+            >
               <Button
-                textColor={colors.color1}
                 onPress={() =>
                   navigation.navigate("productimages", {
-                    id: id,
+                    id,
                     images: product.images,
                   })
                 }
+                textColor={colors.color1}
               >
                 Manage Images
               </Button>
+
               <TextInput
                 {...inputOptions}
                 placeholder="Name"
@@ -107,6 +118,7 @@ const UpdateProduct = ({ navigation, route }) => {
                 value={description}
                 onChangeText={setDescription}
               />
+
               <TextInput
                 {...inputOptions}
                 placeholder="Price"
@@ -116,22 +128,24 @@ const UpdateProduct = ({ navigation, route }) => {
               />
               <TextInput
                 {...inputOptions}
-                keyboardType="number-pad"
                 placeholder="Stock"
                 value={stock}
+                keyboardType="number-pad"
                 onChangeText={setStock}
               />
+
               <Text
                 style={{
                   ...inputStyling,
                   textAlign: "center",
-                  borderRadius: 3,
                   textAlignVertical: "center",
+                  borderRadius: 3,
                 }}
-                onPress={() => setVisiable(true)}
+                onPress={() => setVisible(true)}
               >
                 {category}
               </Text>
+
               <Button
                 textColor={colors.color2}
                 style={{
@@ -149,12 +163,13 @@ const UpdateProduct = ({ navigation, route }) => {
           </ScrollView>
         )}
       </View>
+
       <SelectComponent
-        visiable={visiable}
         categories={categories}
-        setVisible={setVisiable}
-        setCategory={setCategory}
         setCategoryID={setCategoryID}
+        setCategory={setCategory}
+        visible={visible}
+        setVisible={setVisible}
       />
     </>
   );

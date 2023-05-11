@@ -10,7 +10,7 @@ import { Avatar, Headline } from "react-native-paper";
 import { colors } from "../styles/styles";
 
 const SelectComponent = ({
-  visiable,
+  visible,
   setVisible,
   setCategory,
   setCategoryID,
@@ -23,7 +23,7 @@ const SelectComponent = ({
   };
 
   return (
-    visiable && (
+    visible && (
       <View style={styles.container}>
         <TouchableOpacity onPress={() => setVisible(false)}>
           <Avatar.Icon

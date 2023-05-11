@@ -235,8 +235,8 @@ export const createProduct = (formData) => async (dispatch) => {
 };
 
 export const updateProductAction =
-  (name, description, category, price, stock, id) => async (dispatch) => {
-    console.log("ID : " + id);
+  (id, name, description, category, price, stock) => async (dispatch) => {
+    console.log("UpdateProductAction ID : " + id);
     try {
       dispatch({
         type: "updateProductRequest",
@@ -264,6 +264,7 @@ export const updateProductAction =
         payload: data.message,
       });
     } catch (error) {
+      console.log("Error : " + error);
       dispatch({
         type: "updateProductFailure",
         payload: error?.response.data.message,
