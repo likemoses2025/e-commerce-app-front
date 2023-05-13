@@ -12,18 +12,20 @@ import {
   inputOptions,
 } from "../styles/styles";
 import { useMessageAndErrorUser } from "../utils/hooks";
+import { useNavigation } from "@react-navigation/native";
 
-const Login = ({ navigation }) => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
-
-  const loading = useMessageAndErrorUser(navigation, dispatch, "profile");
+  const navigation = useNavigation();
 
   const submitHandler = () => {
     dispatch(login(email, password));
   };
+
+  const loading = useMessageAndErrorUser(dispatch, navigation, "profile");
 
   return (
     <>

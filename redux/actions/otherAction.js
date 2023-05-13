@@ -336,3 +336,71 @@ export const deleteProductAndImage = (id) => async (dispatch) => {
     });
   }
 };
+
+export const forgetPassword = (email) => async (dispatch) => {
+  try {
+    console.log("Working 1");
+    dispatch({
+      type: "forgetPasswordRequest",
+    });
+
+    console.log("eamil :" + email);
+    const { data } = await axios.post(
+      `${server}/user/forgetpassword`,
+      {
+        email,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      }
+    );
+    console.log("Working 2");
+    dispatch({
+      type: "forgetPasswordSuccess",
+      payload: data.message,
+    });
+    console.log("Working 3");
+  } catch (error) {
+    console.log("Working Error: " + error);
+    dispatch({
+      type: "forgetPasswordFailure",
+      payload: error?.response.data.message,
+    });
+  }
+};
+
+export const resetPassword = (otp, password) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "resetPasswordRequest",
+    });
+
+    const { data } = await axios.put(
+      `${server}/user/forgetpassword`,
+      {
+        otp,
+        password,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      }
+    );
+
+    dispatch({
+      type: "resetPasswordSuccess",
+      payload: data.message,
+    });
+  } catch (error) {
+    console.log("Error : " + error);
+    dispatch({
+      type: "resetPasswordFailure",
+      payload: error?.response.data.message,
+    });
+  }
+};

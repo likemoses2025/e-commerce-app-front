@@ -26,7 +26,9 @@ const Profile = ({ navigation, route }) => {
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
 
-  const loading = useMessageAndErrorUser(navigation, dispatch, "login");
+  console.log("User Avatar : ", user);
+
+  const loading = useMessageAndErrorUser(dispatch, navigation, "login");
 
   const logoutHandler = () => {
     dispatch(logout());

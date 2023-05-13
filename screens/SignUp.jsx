@@ -52,7 +52,7 @@ const SignUp = ({ navigation, route }) => {
     dispatch(register(myForm));
   };
 
-  const loading = useMessageAndErrorUser(navigation, dispatch, "profile");
+  const loading = useMessageAndErrorUser(dispatch, navigation, "profile");
 
   useEffect(() => {
     if (route.params?.image) return setAvatar(route.params.image);
