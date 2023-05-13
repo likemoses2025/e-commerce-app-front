@@ -5,7 +5,7 @@ import MyModal from "../components/MyModal";
 
 const ProductListItem = ({
   navigation,
-  deleteHandler,
+  deleteProductHandler,
   i,
   id,
   price,
@@ -85,7 +85,7 @@ const ProductListItem = ({
       {openModal && (
         <MyModal
           id={id}
-          deleteHandler={deleteHandler(id)}
+          deleteProductHandler={deleteProductHandler}
           navigation={navigation}
           setOpenModal={setOpenModal}
         />

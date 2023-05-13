@@ -1,26 +1,40 @@
 import React, { useEffect, useState } from "react";
 import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { Avatar, Button } from "react-native-paper";
+import { useDispatch } from "react-redux";
 import Header from "../../components/Header";
 import ImageCard from "../../components/ImageCard";
 import { colors, defaultStyle, formHeading } from "../../styles/styles";
+import { useMessageAndErrorUser } from "../../utils/hooks";
+import mime from "mime";
+import {
+  addProductImage,
+  deleteProductImage,
+} from "../../redux/actions/otherAction";
 
 const ProductImages = ({ route, navigation }) => {
-  console.log("Images", route.params.image);
-
+  const dispatch = useDispatch();
   const [images] = useState(route.params.images);
   const [productId] = useState(route.params.id);
   const [image, setImage] = useState(null);
   const [imageChanged, setImageChanged] = useState(false);
 
-  const loading = false;
+  const loading = useMessageAndErrorUser(dispatch, navigation, "adminpanel");
 
   const deleteHandler = (id) => {
-    console.log("Image Id", id);
-    console.log("Product Id", productId);
+    dispatch(deleteProductImage(productId, id));
   };
 
-  const submitHandler = () => {};
+  const submitHandler = () => {
+    const myForm = new FormData();
+    myForm.append("file", {
+      uri: image,
+      type: mime.getType(image),
+      name: image.split("/").pop(),
+    });
+    console.log(" :" + myForm);
+    dispatch(addProductImage(productId, myForm));
+  };
 
   useEffect(() => {
     if (route.params?.image) {

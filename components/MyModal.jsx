@@ -3,7 +3,7 @@ import React from "react";
 import { colors } from "../styles/styles";
 import { Avatar, Button } from "react-native-paper";
 
-const MyModal = ({ id, deleteHandler, navigation, setOpenModal }) => {
+const MyModal = ({ id, deleteProductHandler, navigation, setOpenModal }) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -30,7 +30,10 @@ const MyModal = ({ id, deleteHandler, navigation, setOpenModal }) => {
         Edit
       </Text>
 
-      <Button textColor={colors.color3} onPress={() => deleteHandler(id)}>
+      <Button
+        textColor={colors.color3}
+        onPress={() => deleteProductHandler(id)}
+      >
         Delete
       </Button>
     </View>

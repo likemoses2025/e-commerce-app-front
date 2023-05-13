@@ -20,7 +20,7 @@ import { createProduct } from "../../redux/actions/otherAction";
 const NewProduct = ({ navigation, route }) => {
   const isFocused = useIsFocused();
   const dispatch = useDispatch();
-  const [visiable, setVisiable] = useState(false);
+  const [visible, setVisible] = useState(false);
 
   const [image, setImage] = useState("");
   const [name, setName] = useState("");
@@ -142,7 +142,7 @@ const NewProduct = ({ navigation, route }) => {
                   borderRadius: 3,
                   textAlignVertical: "center",
                 }}
-                onPress={() => setVisiable(true)}
+                onPress={() => setVisible(true)}
               >
                 {category}
               </Text>
@@ -164,9 +164,9 @@ const NewProduct = ({ navigation, route }) => {
         )}
       </View>
       <SelectComponent
-        visiable={visiable}
+        visible={visible}
         categories={categories}
-        setVisible={setVisiable}
+        setVisible={setVisible}
         setCategory={setCategory}
         setCategoryID={setCategoryID}
       />

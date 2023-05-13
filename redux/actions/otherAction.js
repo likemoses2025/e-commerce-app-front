@@ -153,7 +153,6 @@ export const processOrder = (id) => async (dispatch) => {
       payload: data.message,
     });
   } catch (error) {
-    console.log("Error", error);
     dispatch({
       type: "processOrderFailure",
       payload: error.response.data.message,
@@ -180,7 +179,6 @@ export const addCategory = (category) => async (dispatch) => {
       payload: data.message,
     });
   } catch (error) {
-    console.log("Error", error);
     dispatch({
       type: "addCategoryFailure",
       payload: error.response.data.message,
@@ -236,7 +234,6 @@ export const createProduct = (formData) => async (dispatch) => {
 
 export const updateProductAction =
   (id, name, description, category, price, stock) => async (dispatch) => {
-    console.log("UpdateProductAction ID : " + id);
     try {
       dispatch({
         type: "updateProductRequest",
@@ -272,12 +269,12 @@ export const updateProductAction =
     }
   };
 
-export const addProductImage = (formData) => async (dispatch) => {
+export const addProductImage = (productId, formData) => async (dispatch) => {
   try {
     dispatch({ type: "addProductImageRequest" });
 
     const { data } = await axios.post(
-      `${server}/product/image/${id}`,
+      `${server}/product/images/${productId}`,
       formData,
       {
         headers: { "Content-Type": "multipart/form-data" },
@@ -292,6 +289,49 @@ export const addProductImage = (formData) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: "addProductImageFailure",
+      payload: error.response.data.message,
+    });
+  }
+};
+
+export const deleteProductImage = (productId, imageId) => async (dispatch) => {
+  try {
+    dispatch({ type: "deleteProductImageRequest" });
+
+    const { data } = await axios.delete(
+      `${server}/product/images/${productId}?id=${imageId}`,
+      {
+        withCredentials: true,
+      }
+    );
+
+    dispatch({
+      type: "deleteProductImageSuccess",
+      payload: data.message,
+    });
+  } catch (error) {
+    dispatch({
+      type: "deleteProductImageFailure",
+      payload: error.response.data.message,
+    });
+  }
+};
+
+export const deleteProductAndImage = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: "deleteProductAndImageRequest" });
+
+    const { data } = await axios.delete(`${server}/product/single/${id}`, {
+      withCredentials: true,
+    });
+
+    dispatch({
+      type: "deleteProductAndImageSuccess",
+      payload: data.message,
+    });
+  } catch (error) {
+    dispatch({
+      type: "deleteProductAndImageFailure",
       payload: error.response.data.message,
     });
   }
